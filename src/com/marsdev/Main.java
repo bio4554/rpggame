@@ -3,8 +3,15 @@ import java.util.Scanner;
 
 public class Main {
 
+    Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        new Main().progEnter();
+    }
+
+    private void progEnter() {
+
+        String inputText = "";
 
         //init creatures start
         Creature player = new Creature("PlayerNoName", 100); player.moveList[0] = new Attack("Fist", 1); player.moveList[1] = new Attack("Knife", 5);
@@ -15,8 +22,32 @@ public class Main {
         System.out.print("What is your name? ");
         player.setName(input.next());
         System.out.println("Welcome, " + player.getName() + "!");
+
+        printStats(player, skeleton);
+
+        //main loop start
+        while(!inputText.contentEquals("exit")) {
+            inputText = getInput();
+            if(inputText.contentEquals("exit")) {
+                System.out.println("Quiting...");
+                break;
+            }
+        }
+        //main loop end
         //main code end
     }
+
+    public void printStats(Creature mainp, Creature altp) {
+        System.out.println(mainp.getName() + " HP: " + mainp.getHp());
+        System.out.println(altp.getName() + " HP: " + altp.getHp());
+    }
+
+    public String getInput() {
+        System.out.print("> ");
+        String e = input.next();
+        return e;
+    }
+
 }
 
 class Creature {
